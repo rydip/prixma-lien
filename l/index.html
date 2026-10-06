@@ -41,14 +41,15 @@
   // ouvre l'app par intent, avec le Play Store en secours.
   (function () {
     var PLAY = 'https://play.google.com/store/apps/details?id=ma.prixma.app';
-    var code = (new URLSearchParams(location.search).get('code') || '').toUpperCase().replace(/[^A-HJKMNP-Z2-9]/g, '');
+    var brut = new URLSearchParams(location.search).get('code');
+    var code = (brut || '').toUpperCase().replace(/[^A-HJKMNP-Z2-9]/g, '');
     var lien = document.getElementById('ouvrir');
-    if (code.length !== 8) {
+    if (brut !== null && code.length !== 8) {
       document.getElementById('texte').textContent = 'Ce code est invalide. Demande un nouveau code à ta famille.';
       lien.hidden = true;
       return;
     }
-    var chemin = 'liste/' + code;
+    var chemin = code ? 'liste/' + code : 'liste';
     var android = /Android/i.test(navigator.userAgent);
     var intent = 'intent://' + chemin + '#Intent;scheme=prixma;package=ma.prixma.app;S.browser_fallback_url='
       + encodeURIComponent(PLAY) + ';end';
@@ -56,10 +57,10 @@
     if (android) {
       location.replace(intent);
       setTimeout(function () {
-        document.getElementById('texte').textContent = 'L’app ne s’est pas ouverte ? Touche le bouton, ou installe Prixma. Dans Ma liste, choisis « J’ai un code » : ' + code.slice(0, 4) + '-' + code.slice(4) + '.';
+        document.getElementById('texte').textContent = code ? 'L’app ne s’est pas ouverte ? Touche le bouton, ou installe Prixma. Dans Ma liste, choisis « J’ai un code » : ' + code.slice(0, 4) + '-' + code.slice(4) + '.' : 'L’app ne s’est pas ouverte ? Touche le bouton pour ouvrir Ma liste, ou installe Prixma.';
       }, 1500);
     } else {
-      document.getElementById('texte').textContent = 'Cette liste s’ouvre dans l’app Prixma, sur Android. Ton code : ' + code.slice(0, 4) + '-' + code.slice(4) + '.';
+      document.getElementById('texte').textContent = code ? 'Cette liste s’ouvre dans l’app Prixma, sur Android. Ton code : ' + code.slice(0, 4) + '-' + code.slice(4) + '.' : 'Ouvre Ma liste dans l’app Prixma.';
     }
   })();
 </script>
