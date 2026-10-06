@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prixma — compare les prix au Maroc</title>
+<meta name="description" content="Prixma compare les prix de Marjane, Carrefour et Aswak Assalam.">
+<meta property="og:title" content="Prixma — compare les prix au Maroc">
+<meta property="og:description" content="Scanne un produit, compare les prix de Marjane, Carrefour et Aswak Assalam.">
+<meta property="og:image" content="https://rydip.github.io/prixma-lien/icon.png">
+<meta name="robots" content="noindex">
+<script>
+  // La page de l'app : sur Android, ouvrir l'app ou le Play Store.
+  (function () {
+    var PLAY = 'https://play.google.com/store/apps/details?id=ma.prixma.app';
+    if (/Android/i.test(navigator.userAgent)) {
+      location.replace('intent://#Intent;scheme=prixma;package=ma.prixma.app;S.browser_fallback_url=' + encodeURIComponent(PLAY) + ';end');
+    } else {
+      location.replace(PLAY);
+    }
+  })();
+</script>
+</head>
+<body style="font-family: system-ui, sans-serif; background: #F7F8F2; color: #182D27; text-align: center; padding: 48px 16px;">
+  <p><a href="https://play.google.com/store/apps/details?id=ma.prixma.app">Télécharger Prixma sur Google Play</a></p>
+</body>
+</html>
