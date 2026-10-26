@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prixma — la liste de la maison</title>
-<meta name="description" content="Rejoins la liste de courses de ta famille dans Prixma.">
-<meta property="og:title" content="Prixma — la liste de la maison">
-<meta property="og:description" content="Rejoins la liste de courses de ta famille dans Prixma.">
+<title>Prima — le panier de la maison</title>
+<meta name="description" content="Rejoins le panier de ta famille dans Prima.">
+<meta property="og:title" content="Prima — le panier de la maison">
+<meta property="og:description" content="Rejoins le panier de ta famille dans Prima.">
 <meta property="og:image" content="https://rydip.github.io/prixma-lien/icon.png">
 <meta property="og:type" content="website">
 <meta name="robots" content="noindex">
@@ -29,18 +29,18 @@
 </head>
 <body>
 <main>
-  <img src="../icon.png" alt="Logo Prixma">
-  <h1>prixma<span>.</span></h1>
-  <p id="texte">Ouverture de la liste dans l’app Prixma…</p>
-  <a class="bouton ouvrir" id="ouvrir" href="#">Ouvrir dans Prixma</a>
-  <a class="bouton store" href="https://play.google.com/store/apps/details?id=ma.prixma.app">Télécharger Prixma sur Google Play</a>
-  <small>Prixma compare les prix de Marjane, Carrefour et Aswak Assalam.</small>
+  <img src="../icon.png" alt="Logo Prima">
+  <h1>prima<span>.</span></h1>
+  <p id="texte">Ouverture du panier dans l’app Prima…</p>
+  <a class="bouton ouvrir" id="ouvrir" href="#">Ouvrir dans Prima</a>
+  <a class="bouton store" href="https://play.google.com/store/apps/details?id=ma.prixma.app">Télécharger Prima sur Google Play</a>
+  <small>Prima compare les prix de Marjane, Carrefour et Aswak Assalam.</small>
 </main>
 <script>
-  // Invitation de la liste de la maison. Comme la page produit, Android
-  // ouvre l'app par intent, avec le Play Store en secours.
+  // Invitation au panier de la maison. Comme la page produit, Android
+  // ouvre l'app par intent, sans lien de secours (voir p/index.html) : si
+  // Chrome refuse de l'ouvrir tout seul, la page reste et le bouton l'ouvre.
   (function () {
-    var PLAY = 'https://play.google.com/store/apps/details?id=ma.prixma.app';
     var brut = new URLSearchParams(location.search).get('code');
     var code = (brut || '').toUpperCase().replace(/[^A-HJKMNP-Z2-9]/g, '');
     var lien = document.getElementById('ouvrir');
@@ -51,16 +51,15 @@
     }
     var chemin = code ? 'liste/' + code : 'liste';
     var android = /Android/i.test(navigator.userAgent);
-    var intent = 'intent://' + chemin + '#Intent;scheme=prixma;package=ma.prixma.app;S.browser_fallback_url='
-      + encodeURIComponent(PLAY) + ';end';
+    var intent = 'intent://' + chemin + '#Intent;scheme=prixma;package=ma.prixma.app;end';
     lien.href = android ? intent : 'prixma://' + chemin;
     if (android) {
       location.replace(intent);
       setTimeout(function () {
-        document.getElementById('texte').textContent = code ? 'L’app ne s’est pas ouverte ? Touche le bouton, ou installe Prixma. Dans Ma liste, choisis « J’ai un code » : ' + code.slice(0, 4) + '-' + code.slice(4) + '.' : 'L’app ne s’est pas ouverte ? Touche le bouton pour ouvrir Ma liste, ou installe Prixma.';
+        document.getElementById('texte').textContent = code ? 'L’app ne s’est pas ouverte ? Touche le bouton, ou installe Prima. Dans Panier, choisis « J’ai un code » : ' + code.slice(0, 4) + '-' + code.slice(4) + '.' : 'L’app ne s’est pas ouverte ? Touche le bouton pour ouvrir Panier, ou installe Prima.';
       }, 1500);
     } else {
-      document.getElementById('texte').textContent = code ? 'Cette liste s’ouvre dans l’app Prixma, sur Android. Ton code : ' + code.slice(0, 4) + '-' + code.slice(4) + '.' : 'Ouvre Ma liste dans l’app Prixma.';
+      document.getElementById('texte').textContent = code ? 'Ce panier s’ouvre dans l’app Prima, sur Android. Ton code : ' + code.slice(0, 4) + '-' + code.slice(4) + '.' : 'Ouvre Panier dans l’app Prima.';
     }
   })();
 </script>

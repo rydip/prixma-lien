@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prixma — compare les prix au Maroc</title>
-<meta name="description" content="Ouvre ce produit dans Prixma : ses prix chez Marjane, Carrefour et Aswak Assalam.">
-<meta property="og:title" content="Prixma — compare les prix au Maroc">
-<meta property="og:description" content="Ouvre ce produit dans Prixma : ses prix chez Marjane, Carrefour et Aswak Assalam.">
+<title>Prima — compare les prix au Maroc</title>
+<meta name="description" content="Ouvre ce produit dans Prima : ses prix chez Marjane, Carrefour et Aswak Assalam.">
+<meta property="og:title" content="Prima — compare les prix au Maroc">
+<meta property="og:description" content="Ouvre ce produit dans Prima : ses prix chez Marjane, Carrefour et Aswak Assalam.">
 <meta property="og:image" content="https://rydip.github.io/prixma-lien/icon.png">
 <meta property="og:type" content="website">
 <meta name="robots" content="noindex">
@@ -28,34 +28,37 @@
 </head>
 <body>
 <main>
-  <img src="../icon.png" alt="Logo Prixma">
-  <h1>prixma<span>.</span></h1>
-  <p id="texte">Ouverture du produit dans l’app Prixma…</p>
-  <a class="bouton ouvrir" id="ouvrir" href="#">Ouvrir dans Prixma</a>
-  <a class="bouton store" id="store" href="https://play.google.com/store/apps/details?id=ma.prixma.app">Télécharger Prixma sur Google Play</a>
-  <small>Prixma compare les prix de Marjane, Carrefour et Aswak Assalam.</small>
+  <img src="../icon.png" alt="Logo Prima">
+  <h1>prima<span>.</span></h1>
+  <p id="texte">Ouverture du produit dans l’app Prima…</p>
+  <a class="bouton ouvrir" id="ouvrir" href="#">Ouvrir dans Prima</a>
+  <a class="bouton store" id="store" href="https://play.google.com/store/apps/details?id=ma.prixma.app">Télécharger Prima sur Google Play</a>
+  <small>Prima compare les prix de Marjane, Carrefour et Aswak Assalam.</small>
 </main>
 <script>
   // Lien de partage d'une fiche (app/lib/lienProduit.ts). Sur Android, une
-  // URL « intent » ouvre l'app si elle est installée, sinon Chrome suit le
-  // lien de secours vers le Play Store. Ailleurs, les deux boutons.
+  // URL « intent » ouvre l'app ; ailleurs, les deux boutons.
+  // Pas de lien de secours (S.browser_fallback_url) : quand Chrome refuse
+  // d'ouvrir l'app tout seul, il le suivait vers la page Play Store, sans
+  // issue tant que l'app n'y est pas publique, et le produit était perdu
+  // (téléphone d'Anass, 25 octobre 2026). La page reste donc affichée et le
+  // bouton ouvre la fiche d'une touche. Sans l'app, Chrome mène lui-même au
+  // Play Store grâce à « package ».
   (function () {
-    var PLAY = 'https://play.google.com/store/apps/details?id=ma.prixma.app';
     var id = new URLSearchParams(location.search).get('id');
     var chemin = /^\d{1,9}$/.test(id || '') ? 'produit/' + id : '';
     var android = /Android/i.test(navigator.userAgent);
-    var intent = 'intent://' + chemin + '#Intent;scheme=prixma;package=ma.prixma.app;S.browser_fallback_url='
-      + encodeURIComponent(PLAY) + ';end';
+    var intent = 'intent://' + chemin + '#Intent;scheme=prixma;package=ma.prixma.app;end';
     var lien = document.getElementById('ouvrir');
     lien.href = android ? intent : 'prixma://' + chemin;
     if (android) {
       location.replace(intent);
       // Si rien ne s'est ouvert (navigateur qui bloque), les boutons restent là.
       setTimeout(function () {
-        document.getElementById('texte').textContent = 'L’app ne s’est pas ouverte ? Touche le bouton, ou installe Prixma.';
+        document.getElementById('texte').textContent = 'L’app ne s’est pas ouverte ? Touche le bouton, ou installe Prima.';
       }, 1500);
     } else {
-      document.getElementById('texte').textContent = 'Ce produit s’ouvre dans l’app Prixma, sur Android.';
+      document.getElementById('texte').textContent = 'Ce produit s’ouvre dans l’app Prima, sur Android.';
     }
   })();
 </script>
